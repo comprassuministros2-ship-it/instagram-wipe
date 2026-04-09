@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Instagram Wipe</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <div id="progress-bar" class="progress-bar hidden"></div>
+
+      <header>
+        <span class="logo">&#9762;</span>
+        <h1>Instagram Wipe</h1>
+        <span id="spinner" class="spinner hidden" aria-hidden="true"></span>
+      </header>
+
+      <p class="hint">
+        Log into instagram.com first, focus that tab, then pick a category and click
+        <strong>Start</strong>.
+      </p>
+
+      <fieldset>
+        <legend>What to delete</legend>
+        <label><input type="radio" name="mode" value="story_replies" /> Story Replies</label>
+        <label><input type="radio" name="mode" value="comments" /> Comments</label>
+        <label><input type="radio" name="mode" value="likes" checked /> Likes</label>
+        <label><input type="radio" name="mode" value="reels" /> Reels</label>
+        <label><input type="radio" name="mode" value="posts" /> Posts</label>
+      </fieldset>
+
+      <label class="row">
+        <span>Items per batch</span>
+        <input type="number" id="batchSize" min="1" max="50" value="20" step="1" />
+      </label>
+
+      <div class="actions">
+        <button id="start" class="btn-primary">Start</button>
+        <button id="stop" class="btn-stop" disabled>Stop</button>
+      </div>
+
+      <p id="status" class="status" aria-live="polite"></p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
