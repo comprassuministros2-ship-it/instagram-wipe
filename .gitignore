@@ -2,3 +2,6 @@
 !.gitignore
 !extension/
 !extension/**
+!LICENSE
+!PRIVACY.md
+!README.md
