@@ -35,6 +35,19 @@ function selectedMode() {
       setRunning(true);
       setStatus("Running — check the Instagram tab.", "ok");
     }
+
+    const { igWipeMode, igWipeBatchSize } = await chrome.storage.local.get(["igWipeMode", "igWipeBatchSize"]);
+    if (typeof igWipeMode === "string") {
+      const input = document.querySelector(`input[name="mode"][value="${igWipeMode}"]`);
+      if (input) input.checked = true;
+    }
+    if (typeof igWipeBatchSize !== "undefined") {
+      const batchInput = document.getElementById("batchSize");
+      const batchValue = Number(igWipeBatchSize);
+      if (Number.isFinite(batchValue) && batchValue >= 1 && batchValue <= 50) {
+        batchInput.value = batchValue;
+      }
+    }
   } catch { /* ignore */ }
 })();
 
@@ -65,6 +78,7 @@ btnStart.addEventListener("click", async () => {
   const mode      = selectedMode();
   const batchSize = Math.min(50, Math.max(1, parseInt(document.getElementById("batchSize").value, 10) || 20));
 
+  await chrome.storage.local.set({ igWipeMode: mode, igWipeBatchSize: batchSize });
   await chrome.storage.session.set({ igWipeStop: false, igWipeRunning: true });
 
   try {
